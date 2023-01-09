@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google" value="notranslate">
+  <title>PITSCO SideKick Robot:</title>
+  <link rel="stylesheet" href="style.css">
+
+  <script src="./side_kick_blocks.js" defer></script>
+  <script src="./side_kick_generator.js" defer></script>
+  <script src="./blockly_helper.js" defer></script>
+  <!--script src="/storage.js"></script-->
+  <script src="./blockly_compressed.js"></script>
+  <script src="./blocks_compressed.js"></script>
+  <script src="./javascript_compressed.js"></script>
+  <script src="./python_compressed.js"></script>
+  <script src="./php_compressed.js"></script>
+  <script src="./lua_compressed.js"></script>
+  <script src="./dart_compressed.js"></script>
+  <script src="./code.js"></script>
+</head>
+
+<div style="height: 1vh; width: 100%; background-color: #263238;"></div>
+
+<script language="JavaScript" type="text/javascript">
+<!-- Copyright 2003, Sandeep Gangadharan -->
+<!-- For more free scripts go to http://www.sivamdesign.com/scripts/ -->
+<!--
+var y1 = 20;   // change the # on the left to adjuct the Y co-ordinate
+(document.getElementById) ? dom = true : dom = false;
+
+function hideIt() {
+// document.getElementById("player").src=""; // stops the video
+  if (dom) {document.getElementById("layer1").style.visibility='hidden';}
+}
+
+function showIt() {
+//  document.getElementById("player").src="https://www.youtube.com/embed/?v=atzPGVUrGCA&list=PLQq4ttTu10zMh2LW4MF_QOJrYNKqQSqik";
+  if (dom) {document.getElementById("layer1").style.visibility='visible';}
+}
+
+function placeIt() {
+  if (dom && !document.all) {document.getElementById("layer1").style.top = window.pageYOffset + (window.innerHeight - (window.innerHeight-y1)) + "px";}
+  if (document.all) {document.all["layer1"].style.top = document.documentElement.scrollTop + (document.documentElement.clientHeight - (document.documentElement.clientHeight-y1)) + "px";}
+  window.setTimeout("placeIt()", 10); }
+// -->
+</script>
+
+
+  <body style="text-align: left;">
+
+    <!--video class=myvideo id="videoElement" controls="true" src="https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4">
+
+    </video>
+
+    <button id="PiP"> Enable Floating Video </button-->
+
+
+    <!--iframe
+      id="videoElement"
+      name="myplayer"
+      class="myvideo"
+      type="text.html"
+      src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=0&controls=2"
+      frameborder="0"
+      style="border: solid 4px #d35e2c"
+      rel="0">
+    </iframe-->
+
+
+
+  <table width="98%" height="90%">
+    <tr>
+      <td>
+        <h1><!--a href="https://www.pitsco.com"> PITSCO Pyoneer Robot</a-->
+
+          <span id="title">...</span>
+        </h1>
+      </td>
+      <td class="farSide">
+        <select id="languageMenu"></select>
+        <a class="privacyLink" href="https://policies.google.com/privacy">Privacy</a>
+      </td>
+    </tr>
+
+    <tr>
+
+      <td colspan=2>
+        <table width="100%">
+          <tr id="tabRow" height="1em">
+            <td id="tab_blocks" class="tabon">...</td>
+            <td class="tabmin tab_collapse">&nbsp;</td>
+            <td id="tab_javascript" class="taboff tab_collapse">JavaScript</td>
+            <td class="tabmin tab_collapse">&nbsp;</td>
+            <td id="tab_python">Python</td>
+            <td class="tabmin tab_collapse">&nbsp;</td>
+            <td id="tab_php" class="taboff tab_collapse">PHP</td>
+            <td class="tabmin tab_collapse">&nbsp;</td>
+            <td id="tab_lua" class="taboff tab_collapse">Lua</td>
+            <td class="tabmin tab_collapse">&nbsp;</td>
+            <td id="tab_dart" class="taboff tab_collapse">Dart</td>
+            <td class="tabmin tab_collapse">&nbsp;</td>
+            <td id="tab_xml" class="taboff tab_collapse">XML
+
+            </td>
+            <td class="tabmin tab_collapse">&nbsp;</td>
+            <td id="tab_json" class="taboff tab_collapse">JSON</td>
+            <td class="tabmin">&nbsp;</td>
+            <td id="tab_code" class="taboff">
+              <select id="code_menu"></select>
+            </td-->
+
+
+            <td class="tabmax">
+
+
+
+
+
+
+              <script>
+                  let video = document.getElementById('videoElement');
+                  let toggleBtn = document.getElementById('PiP');
+                 toggleBtn.addEventListener('click', togglePiPMode);
+                  async function togglePiPMode(event) {
+                      toggleBtn.disabled = true; //disable btn ,so that no multiple request are made
+                      try {
+                          if (video !== document.pictureInPictureElement) {
+                              await video.requestPictureInPicture();
+                              toggleBtn.textContent = "Exit Pip Mode";
+                          }
+                          // If already playing exit mide
+                          else {
+                              await document.exitPictureInPicture();
+                              toggleBtn.textContent = "Enable Pip Mode";
+                          }
+                      } catch (error) {
+                          console.log(error);
+                      } finally {
+                          toggleBtn.disabled = false; //enable toggle at last
+                      }
+                  }
+
+              </script>
+
+
+              <!--button id="trashButton" class="notext" title="...">
+                <img src='../../media/1x1.gif' class="trash icon21">
+              </button-->
+              <!--button id="linkButton" class="notext" title="...">
+                <img src='../../media/1x1.gif' class="link icon21">
+              </button-->
+              <!--button id="runButton" class="notext primary" title="...">
+                <img src='../../media/1x1.gif' class="run icon21">
+              </button-->
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td height="99%" colspan=2 id="content_area">
+      </td>
+    </tr>
+  </table>
+  <div id="content_blocks" class="content"></div>
+  <pre id="content_javascript" class="content prettyprint lang-js"></pre>
+  <pre id="content_python" class="content prettyprint lang-py"></pre>
+  <pre id="content_php" class="content prettyprint lang-php"></pre>
+  <pre id="content_lua" class="content prettyprint lang-lua"></pre>
+  <pre id="content_dart" class="content prettyprint lang-dart"></pre>
+  <textarea id="content_xml" class="content" wrap="off"></textarea>
+  <textarea id="content_json" class="content" wrap="off"></textarea>
+
+
+  <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+    <category name="Movement" colour= "#7B1FA2">
+      <block type="move_speed">
+        <value name="speed">
+          <shadow type="math_number">
+            <field name="NUM">50</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="move_distance">
+        <value name="distance">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="move_start"></block>
+      <block type="move_stop"></block>
+      <block type="move_spin">
+        <value name="degrees">
+          <shadow type="math_number">
+            <field name="NUM">90</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="move_pivot">
+        <value name="degrees">
+          <shadow type="math_number">
+            <field name="NUM">90</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="move_steering">
+        <value name="left speed">
+          <shadow type="math_number">
+            <field name="NUM">50</field>
+          </shadow>
+        </value>
+        <value name="right speed">
+          <shadow type="math_number">
+            <field name="NUM">50</field>
+          </shadow>
+        </value>
+      </block>
+    </category>
+
+    <category name="Sensors" colour= "#ec5b13">
+      <block type="sensor_ultrasonic"></block>
+      <block type="sensor_line"></block>
+    </category>
+
+    <category name="Control" colour= "#eea011">
+      <block type="event_wait_for_start"></block>
+      <block type="delay"></block>
+      <block type="event_green_button"></block>
+      <block type="event_gray_button"></block>
+    </category>
+
+    <category name="Servos" colour= "#db2457">
+      <block type="move_servo">
+        <value name="position">
+          <shadow type="math_number">
+            <field name="NUM">90</field>
+          </shadow>
+        </value>
+        <value name="speed">
+          <shadow type="math_number">
+            <field name="NUM">50</field>
+          </shadow>
+        </value>
+      </block>
+    </category>
+
+    <category name="Pixels" colour= "#741e1c">
+      <block type="pixel_color">
+        <!--value name="color">
+          <shadow type="colour_picker"/>
+        </value-->
+        <value name="color">
+          <shadow type="colour_picker">
+            <field name="COLOUR">#ff0000</field>
+          </shadow>
+        </value>
+        <value name="brightness">
+          <shadow type="math_number">
+            <field name="NUM">50</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="pixel_blink">
+        <!--value name="color">
+          <shadow type="colour_picker"/>
+        </value-->
+        <value name="color">
+          <shadow type="colour_picker">
+            <field name="COLOUR">#ff0000</field>
+          </shadow>
+        </value>
+        <value name="times">
+          <shadow type="math_number">
+            <field name="NUM">5</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="pixel_animate"></block>
+      <block type="pixels_off"></block>
+      <block type="color_picker"></block>
+      <block type="color_random"></block>
+    </category>
+
+    <category name="Sound" colour= "#1b84e4">
+      <block type="sound_effect"></block>
+      <block type="sound_tone">
+        <value name="tone">
+          <shadow type="math_number">
+            <field name="NUM">1000</field>
+          </shadow>
+        </value>
+        <value name="time">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="sound_note">
+        <value name="time">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="sound_stop"></block>
+    </category>
+
+    <sep></sep>
+
+    <category name="%{BKY_CATLOGIC}" colour="%{BKY_LOGIC_HUE}">
+      <block type="controls_if"></block>
+      <block type="logic_compare"></block>
+      <block type="logic_operation"></block>
+      <block type="logic_negate"></block>
+      <block type="logic_boolean"></block>
+      <block type="logic_null"></block>
+      <block type="logic_ternary"></block>
+    </category>
+    <category name="%{BKY_CATLOOPS}" colour="%{BKY_LOOPS_HUE}">
+      <block type="controls_repeat_ext">
+        <value name="TIMES">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="controls_whileUntil"></block>
+      <block type="controls_for">
+        <value name="FROM">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="TO">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+        <value name="BY">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="controls_forEach"></block>
+      <block type="controls_flow_statements"></block>
+    </category>
+    <category name="%{BKY_CATMATH}" colour="%{BKY_MATH_HUE}">
+      <block type="math_number">
+        <field name="NUM">123</field>
+      </block>
+      <block type="math_arithmetic">
+        <value name="A">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="B">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_single">
+        <value name="NUM">
+          <shadow type="math_number">
+            <field name="NUM">9</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_trig">
+        <value name="NUM">
+          <shadow type="math_number">
+            <field name="NUM">45</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_constant"></block>
+      <block type="math_number_property">
+        <value name="NUMBER_TO_CHECK">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_round">
+        <value name="NUM">
+          <shadow type="math_number">
+            <field name="NUM">3.1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_on_list"></block>
+      <block type="math_modulo">
+        <value name="DIVIDEND">
+          <shadow type="math_number">
+            <field name="NUM">64</field>
+          </shadow>
+        </value>
+        <value name="DIVISOR">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_constrain">
+        <value name="VALUE">
+          <shadow type="math_number">
+            <field name="NUM">50</field>
+          </shadow>
+        </value>
+        <value name="LOW">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="HIGH">
+          <shadow type="math_number">
+            <field name="NUM">100</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_random_int">
+        <value name="FROM">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="TO">
+          <shadow type="math_number">
+            <field name="NUM">100</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_random_float"></block>
+      <block type="math_atan2">
+        <value name="X">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="Y">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+    </category>
+    <category name="%{BKY_CATTEXT}" colour="%{BKY_TEXTS_HUE}">
+      <block type="text"></block>
+      <block type="text_join"></block>
+      <block type="text_append">
+        <value name="TEXT">
+          <shadow type="text"></shadow>
+        </value>
+      </block>
+      <block type="text_length">
+        <value name="VALUE">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_isEmpty">
+        <value name="VALUE">
+          <shadow type="text">
+            <field name="TEXT"></field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_indexOf">
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR">{textVariable}</field>
+          </block>
+        </value>
+        <value name="FIND">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_charAt">
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR">{textVariable}</field>
+          </block>
+        </value>
+      </block>
+      <block type="text_getSubstring">
+        <value name="STRING">
+          <block type="variables_get">
+            <field name="VAR">{textVariable}</field>
+          </block>
+        </value>
+      </block>
+      <block type="text_changeCase">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_trim">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_print">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_prompt_ext">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+    </category>
+    <category name="%{BKY_CATLISTS}" colour="%{BKY_LISTS_HUE}">
+      <block type="lists_create_with">
+        <mutation items="0"></mutation>
+      </block>
+      <block type="lists_create_with"></block>
+      <block type="lists_repeat">
+        <value name="NUM">
+          <shadow type="math_number">
+            <field name="NUM">5</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="lists_length"></block>
+      <block type="lists_isEmpty"></block>
+      <block type="lists_indexOf">
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR">{listVariable}</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_getIndex">
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR">{listVariable}</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_setIndex">
+        <value name="LIST">
+          <block type="variables_get">
+            <field name="VAR">{listVariable}</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_getSublist">
+        <value name="LIST">
+          <block type="variables_get">
+            <field name="VAR">{listVariable}</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_split">
+        <value name="DELIM">
+          <shadow type="text">
+            <field name="TEXT">,</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="lists_sort"></block>
+    </category>
+    <!--category name="%{BKY_CATCOLOUR}" colour="%{BKY_COLOUR_HUE}">
+      <block type="colour_picker"></block>
+      <block type="colour_random"></block>
+      <block type="colour_rgb">
+        <value name="RED">
+          <shadow type="math_number">
+            <field name="NUM">100</field>
+          </shadow>
+        </value>
+        <value name="GREEN">
+          <shadow type="math_number">
+            <field name="NUM">50</field>
+          </shadow>
+        </value>
+        <value name="BLUE">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="colour_blend">
+        <value name="COLOUR1">
+          <shadow type="colour_picker">
+            <field name="COLOUR">#ff0000</field>
+          </shadow>
+        </value>
+        <value name="COLOUR2">
+          <shadow type="colour_picker">
+            <field name="COLOUR">#3333ff</field>
+          </shadow>
+        </value>
+        <value name="RATIO">
+          <shadow type="math_number">
+            <field name="NUM">0.5</field>
+          </shadow>
+        </value>
+      </block>
+    </category-->
+    <sep></sep>
+    <category name="%{BKY_CATVARIABLES}" colour="%{BKY_VARIABLES_HUE}" custom="VARIABLE"></category>
+    <category name="%{BKY_CATFUNCTIONS}" colour="%{BKY_PROCEDURES_HUE}" custom="PROCEDURE"></category>
+  </xml>
+
+<script>
+
+      function content() {
+        window.open("https://www.youtube.com/embed/?v=atzPGVUrGCA&list=PLQq4ttTu10zMh2LW4MF_QOJrYNKqQSqik", "_blank", "width=400,height=200");
+          }
+
+      function savePyCode() {
+            var code = Blockly.Python.workspaceToCode(Code.workspace);
+            savePythonCodeToFile(code, "code.py");
+          }
+
+      function savePythonCodeToFile(data, fileName) {
+
+            var a = document.createElement("a");
+            document.body.appendChild(a);
+            a.style = "display: none";
+
+
+            var json = JSON.stringify(data),
+                blob = new Blob([data], {type: "text/plain;charset=utf-8"}),
+                url = window.URL.createObjectURL(blob);
+
+
+            a.href = url;
+            a.download = fileName;
+            a.click();
+            alert("wait for download to finish")
+
+            window.URL.revokeObjectURL(url);
+
+
+    }
+
+    function savePythonCodeToFile_2(data, fileName) {
+
+          //var content = ["your-content-here"];
+          var json = JSON.stringify(data),
+               bl = new Blob([data], {type: "text/plain;charset=utf-8"});
+          var a = document.createElement("a");
+          a.href = URL.createObjectURL(bl);
+          a.download = "code.py";
+          a.hidden = true;
+          document.body.appendChild(a);
+          a.click();
+
+  }
+
+
+    function saveBlocklyCodeToFile() {
+            var a = document.createElement("a");
+            document.body.appendChild(a);
+            a.style = "display: none";
+
+            var xml = Blockly.Xml.workspaceToDom(Code.workspace);
+            var xml_text = Blockly.Xml.domToPrettyText(xml);
+
+            var json = JSON.stringify(xml_text),
+                blob = new Blob([xml_text], {type: "text/plain;charset=utf-8"}),
+                url = window.URL.createObjectURL(blob);
+            a.href = url;
+            a.download = "code.blockly";
+            a.click();
+            window.URL.revokeObjectURL(url);
+    }
+
+/*
+    function loadBlocklyCodeFromFile() {
+
+            alert();
+
+
+            const selectedFile = document.getElementById('fileToLoad').files[0];
+            // update the new file name
+            currentFileName = selectedFile.name;
+
+            const reader = new FileReader();
+            reader.onload = (function(evt) {
+              var result = evt.target.result;
+
+              try {
+                var xml = Blockly.Xml.textToDom(result);
+                // clear editor first
+                Blockly.mainWorkspace.clear();
+                Blockly.Xml.domToWorkspace(xml, Code.workspace);
+              }
+              catch(err) {
+                alert("Not a Blockly file.");
+              }
+
+            });
+            reader.readAsText(selectedFile);
+    }
+*/
+
+
+
+    function readFiles(){
+      var files = event.target.files;
+      // Only allow uploading one file.
+      if (files.length != 1) {
+        return;
+      }
+
+      // FileReader
+      var reader = new FileReader();
+      reader.onloadend = function(event) {
+        var target = event.target;
+        // 2 == FileReader.DONE
+        if (target.readyState == 2) {
+          try {
+            var xml = Blockly.Xml.textToDom(target.result);
+          } catch (e) {
+            alert('Error parsing XML:\n' + e);
+            return;
+          }
+          var count = Blockly.mainWorkspace.getAllBlocks().length;
+          if (count && confirm('Replace existing blocks?\n"Cancel" will merge.')) {
+            Blockly.mainWorkspace.clear();
+          }
+          Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
+
+
+      //    setTimeout(ZoomCenter,1000);
+
+        }
+        // Reset value of input after loading because Chrome will not fire
+        // a 'change' event if the same file is loaded again.
+        document.getElementById('file-input').value = '';
+      };
+      reader.readAsText(files[0]);
+    }
+
+    function ZoomCenter(){
+      Blockly.mainWorkspace.zoomToFit();
+      Blockly.mainWorkspace.setScale(1);
+      Blockly.mainWorkspace.scrollCenter(workspace);	// set scroll bars to center
+
+
+    }
+
+
+
+
+</script>
+
+<!--div class="resp-container">
+  <iframe
+    class="resp-iframe"
+    id="player"
+    name="myplayer"
+    type="text.html"
+
+    src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=0&controls=2"
+    frameborder="0"
+    style="border: solid 4px #d35e2c"
+    rel="0">
+  </iframe>
+</div-->
+
+<!--div style="right: 0px; border: 0px none; height: 50; resize: none; position: fixed; width: 50; overflow: none; top: 100px;">
+    <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY?rel=0&amp" scrolling="no" style="height: 50%; border: 8px solid red; width: 50%; margin-bottom: 0px; margin-left: 24px;">
+    </iframe>
+  </div-->
+
+<!--div class="container">
+  <video class="responsive-iframe" controls>
+    <source src="sample-5s.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div-->
+
+<div style="height: 1vh; width: 95%; margin-bottom: 1px; background-color: #263238;"></div>
+
+
+
+<!--button onclick="loadBlocklyCodeFromFile()">Load Blocks</button-->
+<!--input accept=".blockly,text/plain" id="fileToLoad" type="file" name="myFiles" onchange="loadBlocklyCodeFromFile();"/-->
+
+
+<button id = openBlocks class ="openButton" onclick="document.getElementById('file-input').click();">Open Blocks</button>
+<input accept=".blockly" id="file-input" type="file" name="name" onchange="readFiles(this.files)" style="display: none;" />
+
+<button id="saveBlocks" onclick="saveBlocklyCodeToFile()">Save Blocks</button>
+<!--button id="linkButton">Save Program</button-->
+<button id="trashButton">Delete Blocks</button>
+<!--button id="delete" onclick="discardBlocks()">Delete Stuff</button-->
+<!--button id="runButton">Flash Code to Robot</button-->
+<button id=saveCode onclick="savePyCode()">Save Python Code</button>
+
+<!--button id="openContent" onclick="content()">Open Content</button-->
+<button id="openContent" onclick="showIt()">Open Content</button>
+
+<!--form><input type="button" value="Open pop-up" onClick="showIt()"></form-->
+
+<!--label class="input-button">Load Blocks:&nbsp;<input accept=".blockly,
+text/plain" type="file" id="fileToLoad" name="myFiles" onchange="loadBlocklyCodeFromFile();"/></label-->
+
+<!--label class="input-button">Load Blocks:&nbsp;<input accept=".blockly,
+text/plain" type="file" id="fileToLoad" name="myFiles" onchange="loadBlocklyCodeFromFile();"/></label-->
+
+<!--div id="layer1" style="position:absolute; top: 30px; right:75px; width:410px; height:10; visibility:hidden">
+
+  <iframe
+    id="player"
+    name="myplayer"
+    type="text.html"
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/?v=atzPGVUrGCA&list=PLQq4ttTu10zMh2LW4MF_QOJrYNKqQSqik"
+    frameborder="0"
+    style="border: solid 8px #e3dedb"
+    rel="0"
+    enablejsapi="1"
+    visibility="hidden">
+  </iframe>
+
+<font face="verdana, arial, helvetica, sans-serif" size="2">
+<div style="float:left; background-color:gray; padding:3px; border:1px solid black">
+<span style="float:right; background-color:gray; color:white; font-weight:bold; width='20px'; text-align:center; cursor:pointer" onclick="javascript:hideIt()">&nbsp;Hide&nbsp;</span>
+
+</div>
+</font>
+</font>
+</div-->
+
+<div id="layer1">
+  <div style="float:left; background-color:gray; padding:2px; border:1px solid black">
+  <span style="float:right; background-color:#263238; color:white; font-weight:normal; width='20px'; text-align:center; cursor:pointer" onclick="javascript:hideIt()">&nbsp;Hide&nbsp;</span>
+  </div>
+  <div id="playerheader">click here to move</div>
+  <!--iframe
+    id="player"
+    name="myplayer"
+    type="text.html"
+    src="https://www.youtube.com/embed/?v=atzPGVUrGCA&list=PLQq4ttTu10zMh2LW4MF_QOJrYNKqQSqik"
+    frameborder="0"
+    style="border: solid 8px #e3dedb"
+    rel="0"
+    enablejsapi="1"
+    visibility="hidden">
+  </iframe-->
+
+  <!--iframe
+    id="player"
+    name="myplayer"
+    type="text.html"
+    src="https://www.youtube.com/embed/5n3znd-0x5w"
+    frameborder="0"
+    style="border: solid 8px #e3dedb"
+    rel="0"
+    enablejsapi="1"
+    visibility="hidden">
+  </iframe-->
+
+
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?&list=PLN0cIpOQ5IyR5oI1WT6gzf2RX5IDGYJC2&index=1" id="player" title="YouTube video player" frameborder="0" modestbranding="1" rel="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+</div>
+
+<script>
+//Make the DIV element draggagle:
+dragElement(document.getElementById("layer1"));
+
+function dragElement(elmnt) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  if (document.getElementById("playerheader")) {
+    /* if present, the header is where you move the DIV from:*/
+    document.getElementById("playerheader").onmousedown = dragMouseDown;
+  } else {
+    /* otherwise, move the DIV from anywhere inside the DIV:*/
+    /*elmnt.onmousedown = dragMouseDown;*/
+  }
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+
+  function closeDragElement() {
+    /* stop moving when mouse button is released:*/
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<html>
+  <head>
+   <title>Picture-in-Picture</title>
+  </head>
+  <body>
+    <video id="videoElement" controls="true" src="https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4"> </video>
+    <button id="PiP"> Enable Floating Video </button>
+    <script>
+        let video = document.getElementById('videoElement');
+        let toggleBtn = document.getElementById('PiP');
+       toggleBtn.addEventListener('click', togglePiPMode);
+        async function togglePiPMode(event) {
+            toggleBtn.disabled = true; //disable btn ,so that no multiple request are made
+            try {
+                if (video !== document.pictureInPictureElement) {
+                    await video.requestPictureInPicture();
+                    toggleBtn.textContent = "Exit Pip Mode";
+                }
+                // If already playing exit mide
+                else {
+                    await document.exitPictureInPicture();
+                    toggleBtn.textContent = "Enable Pip Mode";
+                }
+            } catch (error) {
+                console.log(error);
+            } finally {
+                toggleBtn.disabled = false; //enable toggle at last
+            }
+        }
+
+    </script>
+  </body>
+</html>
