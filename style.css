@@ -176,6 +176,27 @@ button.notext {
 
 }
 
+#connect{
+  margin: 3px 3px 3px 3px;
+  background-color: #263238;
+  color: #fff;
+  font-weight: normal;
+  font-size: 16px;
+  padding: 5px 15px;
+
+}
+
+#disconnect{
+  margin: 3px 3px 3px 3px;
+  background-color: #263238;
+  color: #fff;
+  font-weight: normal;
+  font-size: 16px;
+  padding: 5px 15px;
+
+}
+
+
 
 
 
@@ -378,3 +399,26 @@ button {
   height:90%;
 
 }
+
+#output {
+        font-family: 'Roboto Mono', monospace;
+        width: 100%;
+        height: 70vh;
+        border: 0.5px solid;
+        border-bottom: 0px;
+        display: block;
+        background-color: black;
+        color: lightgreen;
+        overflow: auto;
+        display: none;
+      }
+
+      #input {
+        font-family: 'Roboto Mono', monospace;
+        width: 100%;
+        border: 0.5px solid;
+        border-top: 0px;
+        background-color: black;
+        color: lightgreen;
+        display: none;
+      }

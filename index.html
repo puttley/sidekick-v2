@@ -19,6 +19,8 @@
   <script src="./lua_compressed.js"></script>
   <script src="./dart_compressed.js"></script>
   <script src="./code.js"></script>
+
+
 </head>
 
 <div style="height: 1vh; width: 100%; background-color: #263238;"></div>
@@ -811,6 +813,181 @@ function placeIt() {
 
 <!--button id="openContent" onclick="content()">Open Content</button-->
 <button id="openContent" onclick="showIt()">Open Content</button>
+
+<button id="connect" class="button">Connect</button>
+<button id="disconnect" disabled class="button">Disconnect</button>
+
+<button id="reboot" class="button" onclick="reboot()">reboot</button>
+<button id="sendcode" class="button" onclick="sendCode()">send</button>
+<button id="saveCP" class="button" onclick="saveCPcode()">save</button>
+<button id="ctlc" class="button" onclick="ctlc()">ctl-c</button>
+<button id="ctld" class="button" onclick="ctld()">ctl-d</button>
+<button id="ctle" class="button" onclick="ctle()">ctl-e</button>
+
+<div class="input">
+        <code id="output"></code>
+        <div class="input-box">
+          <span>Command: </span>
+          <!--input id="input" type="text" disabled/-->
+          <textarea id="input" type="text" rows="4" cols="50"></textarea>
+        </div>
+      </div>
+
+<script>
+
+const encoder = new TextEncoder();
+const decoder = new TextDecoder();
+const connect = document.querySelector('#connect');
+const disconnect = document.querySelector('#disconnect');
+const terminal = document.querySelector('#output');
+const input = document.querySelector('#input');
+
+let port;
+let writer;
+let reader;
+
+async function readLoop() {
+      while (true) {
+        const {value, done} = await reader.read();
+        if (value) {
+          terminal.innerText += decoder.decode(value);
+        }
+        if (done) {
+          reader.releaseLock();
+          break;
+        }
+      }
+    }
+
+    async function ctlc() {
+    // ctrl-C twice: interrupt any running program
+       await writer.write(Int16Array.from([0x13, 0x03, 0x03]));
+    }
+
+    async function ctld(){
+    //  ctrl-D
+        await writer.write(Int16Array.from([0x04]));
+    }
+
+    async function ctle(){
+    //  ctrl-E
+        await writer.write(Int16Array.from([0x13, 0x05]));
+    }
+
+    async function reboot(){
+        ctlc();
+        ctld();
+      //  setTimeout(ctlc, 4000);
+    }
+
+    async function sendCode(){
+    //	var value = document.getElementById("input").value;
+      var value = input.value;
+      sendCommand(value);
+      console.log(value);
+  //		setTimeout(runCode, 3000);
+    }
+
+    function sendCommand(command) {
+      var ccommand = command.replace(/\n/g, "\r");               /// i added
+      writer.write(encoder.encode(ccommand + '\r\n'));
+    }
+
+    function saveCPcode() {
+      ctlc(); // interrupt any running code
+      pastecode();
+      var command = "with open('code.py','w') as f: f.write(code)"
+      var ccommand = command.replace(/\n/g, "\r");               /// i added
+      writer.write(encoder.encode(ccommand + '\r\n'));
+      setTimeout(ctld(), 1000); // soft reboot
+      setTimeout(ctld(), 1000);
+    }
+
+
+    function pastecode() {
+      var code = '\r' + "code=r'''" + Blockly.Python.workspaceToCode(Code.workspace) + "'''";
+      var ccommand = code.replace(/\n/g, "\r");               /// i added
+      writer.write(encoder.encode(ccommand + '\r\n'));
+  //    writer.write(encoder.encode(ccommand));
+    //  setTimeout(readLoop(), 1000);
+
+    }
+
+    async function raw() {
+          // ctrl-C twice: interrupt any running program
+          // await writer.write(Int16Array.from([0x13, 0x03, 0x03]));
+
+          // Ctrl-A: enter raw REPL
+           await writer.write(Int16Array.from([0x01]));
+
+          //  ctrl-D: soft reset
+          // await writer.write(Int16Array.from([0x04]));
+
+         //  ctrl-E: paste mode
+          // await writer.write(Int16Array.from([0x05]));
+        }
+        async function exitraw() {
+              // ctrl-C twice: interrupt any running program
+              // await writer.write(Int16Array.from([0x13, 0x03, 0x03]));
+
+              // Ctrl-A: enter raw REPL
+               await writer.write(Int16Array.from([0x02]));
+
+              //  ctrl-D: soft reset
+              // await writer.write(Int16Array.from([0x04]));
+
+             //  ctrl-E: paste mode
+              // await writer.write(Int16Array.from([0x05]));
+            }
+
+
+connect.addEventListener('click', async () => {
+      port = await navigator.serial.requestPort();
+      await port.open({
+        baudRate: 9600,
+        dateBits: 8,
+        stopBits: 1
+      });
+
+      writer = port.writable.getWriter();
+      reader = port.readable.getReader();
+
+      readLoop();
+    //  connect.disabled = true;
+      disconnect.disabled = false;
+      input.disabled = false;
+    });
+
+    disconnect.addEventListener('click', async () => {
+      await writer.close();
+      await reader.cancel();
+      await port.close();
+      disconnect.disabled = true;
+      connect.disabled = false;
+      input.disabled = true;
+    });
+
+    input.addEventListener('keyup', (e) => {
+        if (e.keyCode === 13) {
+          e.preventDefault();
+          var code = input.value;
+          sendCommand(code);
+    //      console.log(code);
+      //    var saveit = "with open('target3.py','w') as f: f.write('''code''')";
+      //    sendCommand(saveit);
+      //    console.log(saveit);
+      //    sendCommand(input.value);
+      //    code = '';
+      //    sendCommand(code);
+          input.value = '';
+          return false;
+        }
+        return true;
+      });
+
+
+
+</script>
 
 <!--form><input type="button" value="Open pop-up" onClick="showIt()"></form-->
 
