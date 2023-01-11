@@ -126,7 +126,6 @@ button.notext {
   font-weight: normal;
   font-size: 16px;
   padding: 5px 15px;
-
 }
 #trashButton{
   margin: 3px 3px 3px 3px;
@@ -135,7 +134,6 @@ button.notext {
   font-weight: normal;
   font-size: 16px;
   padding: 5px 15px;
-
 }
 #saveCode{
   margin: 3px 3px 3px 3px;
@@ -144,7 +142,7 @@ button.notext {
   font-weight: normal;
   font-size: 16px;
   padding: 5px 15px;
-
+  display: none;
 }
 #openContent{
   margin: 3px 3px 3px 3px;
@@ -153,9 +151,7 @@ button.notext {
   font-weight: normal;
   font-size: 16px;
   padding: 5px 15px;
-
 }
-
 #loadBlocks{
   margin: 3px 3px 3px 3px;
   background-color: #263238;
@@ -163,9 +159,7 @@ button.notext {
   font-weight: normal;
   font-size: 16px;
   padding: 5px 15px;
-
 }
-
 #openBlocks{
   margin: 3px 3px 3px 3px;
   background-color: #263238;
@@ -173,9 +167,7 @@ button.notext {
   font-weight: normal;
   font-size: 16px;
   padding: 5px 15px;
-
 }
-
 #connect{
   margin: 3px 3px 3px 3px;
   background-color: #263238;
@@ -183,9 +175,7 @@ button.notext {
   font-weight: normal;
   font-size: 16px;
   padding: 5px 15px;
-
 }
-
 #disconnect{
   margin: 3px 3px 3px 3px;
   background-color: #263238;
@@ -193,14 +183,59 @@ button.notext {
   font-weight: normal;
   font-size: 16px;
   padding: 5px 15px;
-
 }
-
-
-
-
-
-
+#reboot{
+  margin: 3px 3px 3px 3px;
+  background-color: #263238;
+  color: #fff;
+  font-weight: normal;
+  font-size: 16px;
+  padding: 5px 15px;
+}
+#saveCP{
+  margin: 3px 3px 3px 3px;
+  background-color: #263238;
+  color: #fff;
+  font-weight: normal;
+  font-size: 16px;
+  padding: 5px 15px;
+}
+#sendcode{
+  margin: 3px 3px 3px 3px;
+  background-color: #263238;
+  color: #fff;
+  font-weight: normal;
+  font-size: 16px;
+  padding: 5px 15px;
+  display: none;
+}
+#ctlc{
+  margin: 3px 3px 3px 3px;
+  background-color: #263238;
+  color: #fff;
+  font-weight: normal;
+  font-size: 16px;
+  padding: 5px 15px;
+  display: none;
+}
+#ctld{
+  margin: 3px 3px 3px 3px;
+  background-color: #263238;
+  color: #fff;
+  font-weight: normal;
+  font-size: 16px;
+  padding: 5px 15px;
+  display: none;
+}
+#ctle{
+  margin: 3px 3px 3px 3px;
+  background-color: #263238;
+  color: #fff;
+  font-weight: normal;
+  font-size: 16px;
+  padding: 5px 15px;
+  display: none;
+}
 
 h1 {
   font-weight: normal;
@@ -277,7 +312,6 @@ html[dir=rtl] td.tabmax {
   text-align: left;
 
 }
-
 
 table {
   border-collapse: collapse;

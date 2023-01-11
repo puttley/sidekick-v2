@@ -26,57 +26,30 @@
 <div style="height: 1vh; width: 100%; background-color: #263238;"></div>
 
 <script language="JavaScript" type="text/javascript">
-<!-- Copyright 2003, Sandeep Gangadharan -->
-<!-- For more free scripts go to http://www.sivamdesign.com/scripts/ -->
-<!--
-var y1 = 20;   // change the # on the left to adjuct the Y co-ordinate
-(document.getElementById) ? dom = true : dom = false;
+    var y1 = 20;   // change the # to adjust y coordinate of video content div
+    (document.getElementById) ? dom = true : dom = false;
 
-function hideIt() {
-// document.getElementById("player").src=""; // stops the video
-  if (dom) {document.getElementById("layer1").style.visibility='hidden';}
-}
+    function hideIt() {
+      if (dom) {document.getElementById("layer1").style.visibility='hidden';}
+    }
 
-function showIt() {
-//  document.getElementById("player").src="https://www.youtube.com/embed/?v=atzPGVUrGCA&list=PLQq4ttTu10zMh2LW4MF_QOJrYNKqQSqik";
-  if (dom) {document.getElementById("layer1").style.visibility='visible';}
-}
+    function showIt() {
+      if (dom) {document.getElementById("layer1").style.visibility='visible';}
+    }
 
-function placeIt() {
-  if (dom && !document.all) {document.getElementById("layer1").style.top = window.pageYOffset + (window.innerHeight - (window.innerHeight-y1)) + "px";}
-  if (document.all) {document.all["layer1"].style.top = document.documentElement.scrollTop + (document.documentElement.clientHeight - (document.documentElement.clientHeight-y1)) + "px";}
-  window.setTimeout("placeIt()", 10); }
-// -->
+    function placeIt() {
+      if (dom && !document.all) {document.getElementById("layer1").style.top = window.pageYOffset + (window.innerHeight - (window.innerHeight-y1)) + "px";}
+      if (document.all) {document.all["layer1"].style.top = document.documentElement.scrollTop + (document.documentElement.clientHeight - (document.documentElement.clientHeight-y1)) + "px";}
+      window.setTimeout("placeIt()", 10); }
 </script>
 
 
   <body style="text-align: left;">
 
-    <!--video class=myvideo id="videoElement" controls="true" src="https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4">
-
-    </video>
-
-    <button id="PiP"> Enable Floating Video </button-->
-
-
-    <!--iframe
-      id="videoElement"
-      name="myplayer"
-      class="myvideo"
-      type="text.html"
-      src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=0&controls=2"
-      frameborder="0"
-      style="border: solid 4px #d35e2c"
-      rel="0">
-    </iframe-->
-
-
-
   <table width="98%" height="90%">
     <tr>
       <td>
-        <h1><!--a href="https://www.pitsco.com"> PITSCO Pyoneer Robot</a-->
-
+        <h1><!--a href="https://www.pitsco.com"> PITSCO LUMA Robot</a-->
           <span id="title">...</span>
         </h1>
       </td>
@@ -103,50 +76,14 @@ function placeIt() {
             <td class="tabmin tab_collapse">&nbsp;</td>
             <td id="tab_dart" class="taboff tab_collapse">Dart</td>
             <td class="tabmin tab_collapse">&nbsp;</td>
-            <td id="tab_xml" class="taboff tab_collapse">XML
-
-            </td>
+            <td id="tab_xml" class="taboff tab_collapse">XML</td>
             <td class="tabmin tab_collapse">&nbsp;</td>
             <td id="tab_json" class="taboff tab_collapse">JSON</td>
             <td class="tabmin">&nbsp;</td>
             <td id="tab_code" class="taboff">
               <select id="code_menu"></select>
             </td-->
-
-
-            <td class="tabmax">
-
-
-
-
-
-
-              <script>
-                  let video = document.getElementById('videoElement');
-                  let toggleBtn = document.getElementById('PiP');
-                 toggleBtn.addEventListener('click', togglePiPMode);
-                  async function togglePiPMode(event) {
-                      toggleBtn.disabled = true; //disable btn ,so that no multiple request are made
-                      try {
-                          if (video !== document.pictureInPictureElement) {
-                              await video.requestPictureInPicture();
-                              toggleBtn.textContent = "Exit Pip Mode";
-                          }
-                          // If already playing exit mide
-                          else {
-                              await document.exitPictureInPicture();
-                              toggleBtn.textContent = "Enable Pip Mode";
-                          }
-                      } catch (error) {
-                          console.log(error);
-                      } finally {
-                          toggleBtn.disabled = false; //enable toggle at last
-                      }
-                  }
-
-              </script>
-
-
+            <td class="tabmax"></td>
               <!--button id="trashButton" class="notext" title="...">
                 <img src='../../media/1x1.gif' class="trash icon21">
               </button-->
@@ -162,8 +99,7 @@ function placeIt() {
       </td>
     </tr>
     <tr>
-      <td height="99%" colspan=2 id="content_area">
-      </td>
+      <td height="99%" colspan=2 id="content_area"></td>
     </tr>
   </table>
   <div id="content_blocks" class="content"></div>
@@ -625,6 +561,7 @@ function placeIt() {
 <script>
 
       function content() {
+        // youtube embed playlist of content videos
         window.open("https://www.youtube.com/embed/?v=atzPGVUrGCA&list=PLQq4ttTu10zMh2LW4MF_QOJrYNKqQSqik", "_blank", "width=400,height=200");
           }
 
@@ -634,41 +571,28 @@ function placeIt() {
           }
 
       function savePythonCodeToFile(data, fileName) {
-
             var a = document.createElement("a");
             document.body.appendChild(a);
             a.style = "display: none";
-
-
             var json = JSON.stringify(data),
                 blob = new Blob([data], {type: "text/plain;charset=utf-8"}),
                 url = window.URL.createObjectURL(blob);
-
-
             a.href = url;
             a.download = fileName;
             a.click();
-            alert("wait for download to finish")
-
             window.URL.revokeObjectURL(url);
+          }
 
-
-    }
-
-    function savePythonCodeToFile_2(data, fileName) {
-
-          //var content = ["your-content-here"];
-          var json = JSON.stringify(data),
-               bl = new Blob([data], {type: "text/plain;charset=utf-8"});
-          var a = document.createElement("a");
-          a.href = URL.createObjectURL(bl);
-          a.download = "code.py";
-          a.hidden = true;
-          document.body.appendChild(a);
-          a.click();
-
-  }
-
+      function savePythonCodeToFile_2(data, fileName) {
+              var json = JSON.stringify(data),
+                   bl = new Blob([data], {type: "text/plain;charset=utf-8"});
+              var a = document.createElement("a");
+              a.href = URL.createObjectURL(bl);
+              a.download = "code.py";
+              a.hidden = true;
+              document.body.appendChild(a);
+              a.click();
+            }
 
     function saveBlocklyCodeToFile() {
             var a = document.createElement("a");
@@ -685,46 +609,14 @@ function placeIt() {
             a.download = "code.blockly";
             a.click();
             window.URL.revokeObjectURL(url);
-    }
-
-/*
-    function loadBlocklyCodeFromFile() {
-
-            alert();
-
-
-            const selectedFile = document.getElementById('fileToLoad').files[0];
-            // update the new file name
-            currentFileName = selectedFile.name;
-
-            const reader = new FileReader();
-            reader.onload = (function(evt) {
-              var result = evt.target.result;
-
-              try {
-                var xml = Blockly.Xml.textToDom(result);
-                // clear editor first
-                Blockly.mainWorkspace.clear();
-                Blockly.Xml.domToWorkspace(xml, Code.workspace);
-              }
-              catch(err) {
-                alert("Not a Blockly file.");
-              }
-
-            });
-            reader.readAsText(selectedFile);
-    }
-*/
-
-
+          }
 
     function readFiles(){
-      var files = event.target.files;
-      // Only allow uploading one file.
-      if (files.length != 1) {
-        return;
+        var files = event.target.files;
+        // Only allow uploading one file.
+        if (files.length != 1) {
+          return;
       }
-
       // FileReader
       var reader = new FileReader();
       reader.onloadend = function(event) {
@@ -742,11 +634,7 @@ function placeIt() {
             Blockly.mainWorkspace.clear();
           }
           Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
-
-
-      //    setTimeout(ZoomCenter,1000);
-
-        }
+          }
         // Reset value of input after loading because Chrome will not fire
         // a 'change' event if the same file is loaded again.
         document.getElementById('file-input').value = '';
@@ -758,48 +646,11 @@ function placeIt() {
       Blockly.mainWorkspace.zoomToFit();
       Blockly.mainWorkspace.setScale(1);
       Blockly.mainWorkspace.scrollCenter(workspace);	// set scroll bars to center
-
-
     }
-
-
-
 
 </script>
 
-<!--div class="resp-container">
-  <iframe
-    class="resp-iframe"
-    id="player"
-    name="myplayer"
-    type="text.html"
-
-    src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=0&controls=2"
-    frameborder="0"
-    style="border: solid 4px #d35e2c"
-    rel="0">
-  </iframe>
-</div-->
-
-<!--div style="right: 0px; border: 0px none; height: 50; resize: none; position: fixed; width: 50; overflow: none; top: 100px;">
-    <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY?rel=0&amp" scrolling="no" style="height: 50%; border: 8px solid red; width: 50%; margin-bottom: 0px; margin-left: 24px;">
-    </iframe>
-  </div-->
-
-<!--div class="container">
-  <video class="responsive-iframe" controls>
-    <source src="sample-5s.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-</div-->
-
 <div style="height: 1vh; width: 95%; margin-bottom: 1px; background-color: #263238;"></div>
-
-
-
-<!--button onclick="loadBlocklyCodeFromFile()">Load Blocks</button-->
-<!--input accept=".blockly,text/plain" id="fileToLoad" type="file" name="myFiles" onchange="loadBlocklyCodeFromFile();"/-->
-
 
 <button id = openBlocks class ="openButton" onclick="document.getElementById('file-input').click();">Open Blocks</button>
 <input accept=".blockly" id="file-input" type="file" name="name" onchange="readFiles(this.files)" style="display: none;" />
@@ -810,6 +661,7 @@ function placeIt() {
 <!--button id="delete" onclick="discardBlocks()">Delete Stuff</button-->
 <!--button id="runButton">Flash Code to Robot</button-->
 <button id=saveCode onclick="savePyCode()">Save Python Code</button>
+<button id="saveCP" class="button" onclick="saveCPcode()">Upload Code</button>
 
 <!--button id="openContent" onclick="content()">Open Content</button-->
 <button id="openContent" onclick="showIt()">Open Content</button>
@@ -817,9 +669,9 @@ function placeIt() {
 <button id="connect" class="button">Connect</button>
 <button id="disconnect" disabled class="button">Disconnect</button>
 
-<button id="reboot" class="button" onclick="reboot()">reboot</button>
+<button id="reboot" class="button" onclick="reboot()">Reset Robot</button>
 <button id="sendcode" class="button" onclick="sendCode()">send</button>
-<button id="saveCP" class="button" onclick="saveCPcode()">save</button>
+
 <button id="ctlc" class="button" onclick="ctlc()">ctl-c</button>
 <button id="ctld" class="button" onclick="ctld()">ctl-d</button>
 <button id="ctle" class="button" onclick="ctle()">ctl-e</button>
@@ -860,85 +712,68 @@ async function readLoop() {
     }
 
     async function ctlc() {
-    // ctrl-C twice: interrupt any running program
+    // ctrl-C twice: interrupt any running program on robot
        await writer.write(Int16Array.from([0x13, 0x03, 0x03]));
     }
 
     async function ctld(){
-    //  ctrl-D
+    //  ctrl-D - do a soft reboot of robot controller
         await writer.write(Int16Array.from([0x04]));
     }
 
     async function ctle(){
-    //  ctrl-E
+    //  ctrl-E - puts robot controller into raw paste mode
         await writer.write(Int16Array.from([0x13, 0x05]));
     }
 
-    async function reboot(){
+    async function reboot(){  // soft reboot
         ctlc();
         ctld();
       //  setTimeout(ctlc, 4000);
     }
 
-    async function sendCode(){
+    async function sendCode(){  // send whatever is in the input box (it's hidden)
     //	var value = document.getElementById("input").value;
       var value = input.value;
       sendCommand(value);
       console.log(value);
-  //		setTimeout(runCode, 3000);
+  //	setTimeout(runCode, 3000);
     }
 
-    function sendCommand(command) {
+    function sendCommand(command) {   // send data passed to here
       var ccommand = command.replace(/\n/g, "\r");               /// i added
       writer.write(encoder.encode(ccommand + '\r\n'));
     }
 
-    function saveCPcode() {
+    function saveCPcode() {   // executes paste code in block workspace to the controller and saves it to a file
       ctlc(); // interrupt any running code
       pastecode();
       var command = "with open('code.py','w') as f: f.write(code)"
       var ccommand = command.replace(/\n/g, "\r");               /// i added
       writer.write(encoder.encode(ccommand + '\r\n'));
-      setTimeout(ctld(), 1000); // soft reboot
-      setTimeout(ctld(), 1000);
+      setTimeout(ctld, 1000); // soft reboot - send it twice
+      setTimeout(ctld, 250);
     }
 
 
-    function pastecode() {
+    function pastecode() {    // paste code in the code workspace
       var code = '\r' + "code=r'''" + Blockly.Python.workspaceToCode(Code.workspace) + "'''";
       var ccommand = code.replace(/\n/g, "\r");               /// i added
       writer.write(encoder.encode(ccommand + '\r\n'));
   //    writer.write(encoder.encode(ccommand));
-    //  setTimeout(readLoop(), 1000);
+  //    setTimeout(readLoop(), 1000);
 
     }
 
-    async function raw() {
-          // ctrl-C twice: interrupt any running program
-          // await writer.write(Int16Array.from([0x13, 0x03, 0x03]));
-
-          // Ctrl-A: enter raw REPL
-           await writer.write(Int16Array.from([0x01]));
-
-          //  ctrl-D: soft reset
-          // await writer.write(Int16Array.from([0x04]));
-
-         //  ctrl-E: paste mode
-          // await writer.write(Int16Array.from([0x05]));
+    async function raw() {    // envokes raw REPL mode
+        // send ctl-A
+         await writer.write(Int16Array.from([0x01]));
         }
-        async function exitraw() {
-              // ctrl-C twice: interrupt any running program
-              // await writer.write(Int16Array.from([0x13, 0x03, 0x03]));
 
-              // Ctrl-A: enter raw REPL
-               await writer.write(Int16Array.from([0x02]));
-
-              //  ctrl-D: soft reset
-              // await writer.write(Int16Array.from([0x04]));
-
-             //  ctrl-E: paste mode
-              // await writer.write(Int16Array.from([0x05]));
-            }
+    async function exitraw() {  // exits raw REPL mode
+        // send ctl-B
+       await writer.write(Int16Array.from([0x02]));
+        }
 
 
 connect.addEventListener('click', async () => {
@@ -967,93 +802,26 @@ connect.addEventListener('click', async () => {
       input.disabled = true;
     });
 
-    input.addEventListener('keyup', (e) => {
+    input.addEventListener('keyup', (e) => {  //lisens for return key in command input box
         if (e.keyCode === 13) {
           e.preventDefault();
           var code = input.value;
           sendCommand(code);
-    //      console.log(code);
-      //    var saveit = "with open('target3.py','w') as f: f.write('''code''')";
-      //    sendCommand(saveit);
-      //    console.log(saveit);
-      //    sendCommand(input.value);
-      //    code = '';
-      //    sendCommand(code);
           input.value = '';
           return false;
         }
         return true;
       });
 
-
-
 </script>
-
-<!--form><input type="button" value="Open pop-up" onClick="showIt()"></form-->
-
-<!--label class="input-button">Load Blocks:&nbsp;<input accept=".blockly,
-text/plain" type="file" id="fileToLoad" name="myFiles" onchange="loadBlocklyCodeFromFile();"/></label-->
-
-<!--label class="input-button">Load Blocks:&nbsp;<input accept=".blockly,
-text/plain" type="file" id="fileToLoad" name="myFiles" onchange="loadBlocklyCodeFromFile();"/></label-->
-
-<!--div id="layer1" style="position:absolute; top: 30px; right:75px; width:410px; height:10; visibility:hidden">
-
-  <iframe
-    id="player"
-    name="myplayer"
-    type="text.html"
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/?v=atzPGVUrGCA&list=PLQq4ttTu10zMh2LW4MF_QOJrYNKqQSqik"
-    frameborder="0"
-    style="border: solid 8px #e3dedb"
-    rel="0"
-    enablejsapi="1"
-    visibility="hidden">
-  </iframe>
-
-<font face="verdana, arial, helvetica, sans-serif" size="2">
-<div style="float:left; background-color:gray; padding:3px; border:1px solid black">
-<span style="float:right; background-color:gray; color:white; font-weight:bold; width='20px'; text-align:center; cursor:pointer" onclick="javascript:hideIt()">&nbsp;Hide&nbsp;</span>
-
-</div>
-</font>
-</font>
-</div-->
 
 <div id="layer1">
   <div style="float:left; background-color:gray; padding:2px; border:1px solid black">
   <span style="float:right; background-color:#263238; color:white; font-weight:normal; width='20px'; text-align:center; cursor:pointer" onclick="javascript:hideIt()">&nbsp;Hide&nbsp;</span>
   </div>
   <div id="playerheader">click here to move</div>
-  <!--iframe
-    id="player"
-    name="myplayer"
-    type="text.html"
-    src="https://www.youtube.com/embed/?v=atzPGVUrGCA&list=PLQq4ttTu10zMh2LW4MF_QOJrYNKqQSqik"
-    frameborder="0"
-    style="border: solid 8px #e3dedb"
-    rel="0"
-    enablejsapi="1"
-    visibility="hidden">
-  </iframe-->
-
-  <!--iframe
-    id="player"
-    name="myplayer"
-    type="text.html"
-    src="https://www.youtube.com/embed/5n3znd-0x5w"
-    frameborder="0"
-    style="border: solid 8px #e3dedb"
-    rel="0"
-    enablejsapi="1"
-    visibility="hidden">
-  </iframe-->
-
 
   <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?&list=PLN0cIpOQ5IyR5oI1WT6gzf2RX5IDGYJC2&index=1" id="player" title="YouTube video player" frameborder="0" modestbranding="1" rel="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
 </div>
 
 <script>
@@ -1061,37 +829,37 @@ text/plain" type="file" id="fileToLoad" name="myFiles" onchange="loadBlocklyCode
 dragElement(document.getElementById("layer1"));
 
 function dragElement(elmnt) {
-  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  if (document.getElementById("playerheader")) {
-    /* if present, the header is where you move the DIV from:*/
-    document.getElementById("playerheader").onmousedown = dragMouseDown;
-  } else {
-    /* otherwise, move the DIV from anywhere inside the DIV:*/
-    /*elmnt.onmousedown = dragMouseDown;*/
-  }
+      var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+      if (document.getElementById("playerheader")) {
+        /* if present, the header is where you move the DIV from:*/
+        document.getElementById("playerheader").onmousedown = dragMouseDown;
+      } else {
+        /* otherwise, move the DIV from anywhere inside the DIV:*/
+        /*elmnt.onmousedown = dragMouseDown;*/
+      }
 
-  function dragMouseDown(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // get the mouse cursor position at startup:
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    document.onmouseup = closeDragElement;
-    // call a function whenever the cursor moves:
-    document.onmousemove = elementDrag;
-  }
+      function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+      }
 
-  function elementDrag(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // calculate the new cursor position:
-    pos1 = pos3 - e.clientX;
-    pos2 = pos4 - e.clientY;
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    // set the element's new position:
-    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+      function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
   }
 
   function closeDragElement() {
