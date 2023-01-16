@@ -572,6 +572,14 @@ Code.initLanguage = function() {
 //  document.getElementById('linkButton').title = MSG['linkTooltip'];
 //  document.getElementById('runButton').title = MSG['runTooltip'];
   document.getElementById('trashButton').title = MSG['trashTooltip'];
+  document.getElementById('openBlocks').title = MSG['openBlocksTooltip'];
+  document.getElementById('saveBlocks').title = MSG['saveBlocksTooltip'];
+  document.getElementById('openContent').title = MSG['contentBlocksTooltip'];
+  document.getElementById('uploadCP').title = MSG['uploadBlocksTooltip'];
+  document.getElementById('SerialConnectButton').title = MSG['connectBlocksTooltip'];
+  document.getElementById('reboot').title = MSG['resetBlocksTooltip'];
+
+  
 };
 
 /**

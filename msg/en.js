@@ -1,12 +1,18 @@
 var MSG = {
-  title: "PITSCO LUMA Robot <BETA> ",
+  title: "PITSCO LUMA Robot",
   blocks: "Blocks",
   linkTooltip: "Save and link to blocks.",
   runTooltip: "Run the program defined by the blocks in the workspace.",
   badCode: "Program error:\n%1",
   timeout: "Maximum execution iterations exceeded.",
-  trashTooltip: "Discard all blocks.",
-
+  trashTooltip: "Discard all blocks",
+  openBlocksTooltip: "Open Blockly Program",
+  saveBlocksTooltip: "Save Blockly Program",
+  contentBlocksTooltip: "Open Video Content Player",
+  uploadBlocksTooltip: "Upload Blockly Code to LUMA",
+  connectBlocksTooltip: "Connect to LUMA",
+  resetBlocksTooltip: "Reset | Restart LUMA",
+  
   catLogic: "Logic",
   catLoops: "Loops",
   catMath: "Math",

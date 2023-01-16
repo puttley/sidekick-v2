@@ -1,10 +1,3 @@
-<!--
-LUMA Robot Web Serial Web App - version 1.0 Beta
-Written by: Paul W Uttley | puttly@pitsco.com
-Data: 01/16/2023
-Company: PITSCO Education LLC
--->
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +19,6 @@ Company: PITSCO Education LLC
   <script src="./lua_compressed.js"></script>
   <script src="./dart_compressed.js"></script>
   <script src="./code.js"></script>
-  <script src="term.js"></script>
 
 
 </head>
@@ -173,7 +165,6 @@ Company: PITSCO Education LLC
 
     <category name="Control" colour= "#eea011">
       <block type="event_wait_for_start"></block>
-      <block type="event_end_program"></block>
       <block type="delay"></block>
       <block type="event_green_button"></block>
       <block type="event_gray_button"></block>
@@ -570,7 +561,7 @@ Company: PITSCO Education LLC
 <script>
 
       function content() {
-        // youtube embed playlist of LUMA Robot content videos
+        // youtube embed playlist of content videos
         window.open("https://www.youtube.com/embed/?v=atzPGVUrGCA&list=PLQq4ttTu10zMh2LW4MF_QOJrYNKqQSqik", "_blank", "width=400,height=200");
           }
 
@@ -660,6 +651,7 @@ Company: PITSCO Education LLC
 </script>
 
 <div style="height: 1vh; width: 95%; margin-bottom: 1px; background-color: #263238;"></div>
+
 <button id = openBlocks class ="openButton" onclick="document.getElementById('file-input').click();">Open Blocks</button>
 <input accept=".blockly" id="file-input" type="file" name="name" onchange="readFiles(this.files)" style="display: none;" />
 
@@ -669,229 +661,161 @@ Company: PITSCO Education LLC
 <!--button id="delete" onclick="discardBlocks()">Delete Stuff</button-->
 <!--button id="runButton">Flash Code to Robot</button-->
 <button id=saveCode onclick="savePyCode()">Save Python Code</button>
+<button id="saveCP" class="button" onclick="saveCPcode()">Upload Code</button>
 
 <!--button id="openContent" onclick="content()">Open Content</button-->
 <button id="openContent" onclick="showIt()">Open Content</button>
 
-<select name="speed" id="SerialSpeed">
-  <option value="1200">1200</option>
-  <option value="2400">2400</option>
-  <option value="4800">4800</option>
-  <option value="9600">9600</option>
-  <option value="19200">19200</option>
-  <option value="38400">38400</option>
-  <option value="57600">57600</option>
-  <option value="115200">115200</option>
-</select>
+<button id="connect" class="button">Connect</button>
+<button id="disconnect" disabled class="button">Disconnect</button>
 
+<button id="reboot" class="button" onclick="reboot()">Reset Robot</button>
+<button id="sendcode" class="button" onclick="sendCode()">send</button>
 
-<button id="interrupt" type="button" onclick=enterMicroPythonPasteMode()>interrupt</button>
-<button id="CTLA" type="button" onclick=CTLA()>CTL-A</button>
-<button id="CTLB" type="button" onclick=CTLB()>CTL-B</button>
-<button id="CTLC" type="button" onclick=CTLC()>CTL-C</button>
-<button id="CTLD" type="button" onclick=CTLD()>CTL-D</button>
-<button id="CTLE" type="button" onclick=CTLE()>CTL-E</button>
-<button id="pasteCP" type="button" onclick=pastecode()>paste code</button>
-<button id="saveCP" type="button" onclick=saveCPcode()>save code</button>
-<button id="uploadCP" type="button" onclick=uploadCPcode()>Upload Code</button>
-<button id="SerialConnectButton" type="button" disabled>Connect LUMA</button>
-<button id="reboot" type="button" onclick=rebootCP()>Reset LUMA</button>
+<button id="ctlc" class="button" onclick="ctlc()">ctl-c</button>
+<button id="ctld" class="button" onclick="ctld()">ctl-d</button>
+<button id="ctle" class="button" onclick="ctle()">ctl-e</button>
 
-<div id="term"></div>
+<div class="input">
+        <code id="output"></code>
+        <div class="input-box">
+          <!--span>Command: </span-->
+          <!--input id="input" type="text" disabled/-->
+          <textarea id="input" type="text" rows="4" cols="50"></textarea>
+        </div>
+      </div>
 
 <script>
 
-function enterMicroPythonPasteMode() {
-  serialWrite('\r\x03\x03'); // ctl c
-  pastemode();
-}
+const encoder = new TextEncoder();
+const decoder = new TextDecoder();
+const connect = document.querySelector('#connect');
+const disconnect = document.querySelector('#disconnect');
+const terminal = document.querySelector('#output');
+const input = document.querySelector('#input');
 
-function uploadCPcode(){
-  var checkcode = Blockly.Python.workspaceToCode(Code.workspace);
-
-  if (checkcode) {
-    serialWrite('\r\x03\x03'); // ctl c >> interrupt any code that is running
-    serialWrite('\r\x03\x03'); // ctl c >> interrupt any code that is running
-    serialWrite('\x05');       // ctl e >> enter raw paste mode
-    // get code from workspace and send it over serial stream
-    var code = "code=r'''" + 'import LUMA as LUMA' + '\n' + Blockly.Python.workspaceToCode(Code.workspace) + 'while True:' + '\n' + '\t' + 'pass' + "'''";
-    console.log(code); // print the code to the console
-    var ccommand = code.replace(/\n/g, "\r");               /// i added
-    serialWrite(ccommand);
-    serialWrite('\x04');   // soft rebbot
-    var command = "with open('code.py','w') as f: f.write(code)"
-    var ccommand = command.replace(/\n/g, "\r");               /// i added
-    serialWrite(ccommand);    // send save code to filesystem
-    serialWrite('\r');        // two returns
-    serialWrite('\r');
-    serialWrite('\x04');      // soft reboot
- }
-}
-
-function rebootCP(){
-  CTLC();
-  CTLD();
-}
-
-function saveCPcode(){
-  CTLD();
-  var command = "with open('code.py','w') as f: f.write(code)"
-  var ccommand = command.replace(/\n/g, "\r");               /// i added
-  serialWrite(ccommand);
-  serialWrite('\r');
-  serialWrite('\r');
-  serialWrite('\x04');  //reboot LUMA
-
-}
-
-function pastecode(){
-  var code = '\r' + "code=r'''" + Blockly.Python.workspaceToCode(Code.workspace) + "'''";
-  var ccommand = code.replace(/\n/g, "\r");               /// i added
-  serialWrite(ccommand);
-//  console.log(ccommand);
-}
-
-function pastemode(){
-  serialWrite('\x05');      // ctl e
-}
-
-function CTLA(){
-  serialWrite('\x01');      // ctl a
-}
-
-function CTLB(){
-  serialWrite('\x02');      // ctl b
-}
-
-function CTLC(){
-  serialWrite('\r\x03\x03');  // ctl c twice
-}
-
-function CTLD(){
-  serialWrite('\x04');      // ctl d
-}
-
-function CTLE(){
-  serialWrite('\x05');      // ctl e
-}
-
-
-var term;
-
-function calculate_size(win) {
-    var cols = Math.max(80, Math.min(150, (win.innerWidth - 280) / 7)) | 0;
-    var rows = Math.max(24, Math.min(80, (win.innerHeight - 180) / 12)) | 0;
-    return [cols, rows];
-}
-
-(function() {
-    window.onload = function() {
-
-      var size = calculate_size(self);
-      term = new Terminal({
-        cols: size[0],
-        rows: size[1],
-        useStyle: true,
-        screenKeys: true,
-        cursorBlink: false
-      });
-      term.open(document.getElementById("term"));
-    };
-    window.addEventListener('resize', function() {
-        var size = calculate_size(self);
-        term.resize(size[0], size[1]);
-    });
-}).call(this);
-
-
-/*
- * Web Serial API (Google Chrome)
- *
- * Useful information used to this implementation:
- * https://github.com/svendahlstrand/web-serial-api/
- * https://dev.to/unjavascripter/the-amazing-powers-of-the-web-web-serial-api-3ilc
- * https://developer.chrome.com/en/articles/serial/
- */
-
-const connectButton = document.getElementById ('SerialConnectButton');
 let port;
+let writer;
+let reader;
 
-// Filter on devices with specific Vendor/Product IDs.
-const filters = [
-  { usbVendorId: 0x239A, usbProductId: 0x80F4 } // LUMA Robot Controller ID's
-];
-
-if ('serial' in navigator) {
-  console.log("The Web Serial API is supported");
-  connectButton.addEventListener('click', function () {
-    if (port) {
-      term.write('\x1b[31mDisconnected from Serial Port\x1b[m\r\n');
-      console.log("Disconnected from Serial Port");
-      port.close();
-      port = undefined;
-    //  connectButton.innerText = 'Connect';
-      document.getElementById('SerialSpeed').disabled = false;
-    }
-    else {
-    //  connectButton.innerText = 'Disconnect';
-      getReader();
-    }
-  });
-
-  connectButton.disabled = false;
-}
-else {
-  const error = document.createElement('p');
-  error.innerHTML = '<p>Support for Serial Web API not enabled. Please enable it using chrome://flags/ and enable Experimental Web Platform fetures</p>';
-  console.log("The Web Serial API is not supported, or not enabled");
-}
-
-
-let lineBuffer = '';
-let latestValue = 0;
-
-async function serialWrite(data) {
-	encoder = new TextEncoder();
-	const dataArrayBuffer = encoder.encode(data);
-
-	if (port && port.writable) {
-		const writer = port.writable.getWriter();
-		writer.write(dataArrayBuffer);
-		writer.releaseLock();
-	}
-}
-
-async function getReader() {
-  port = await navigator.serial.requestPort({ filters });
-	var e = document.getElementById("SerialSpeed");
-	var strSpd = e.options[e.selectedIndex].value;
-	//var speed = parseInt(strSpd);
-  var speed = 115200;   // set baud to 115200 as the default
-  rebootCP();
-	await port.open({ baudRate: [speed] });
-  rebootCP();
-	document.getElementById('SerialSpeed').disabled = true;
-
-    //    connectButton.innerText = 'Disconnect';
-        term.write('\x1b[31mConnected using Web Serial API !\x1b[m\r\n');
-        console.log("Connected to Serial Port");
-          const appendStream = new WritableStream({
-          write(chunk) {
-	    term.write(chunk);
-          }
-        });
-
-        port.readable
-          .pipeThrough(new TextDecoderStream())
-          .pipeTo(appendStream);
-
-
-	term.on('data', function(data) {
-            serialWrite(data);
-
-        });
-
+async function readLoop() {
+      while (true) {
+        const {value, done} = await reader.read();
+        if (value) {
+          terminal.innerText += decoder.decode(value);
+        }
+        if (done) {
+          reader.releaseLock();
+          break;
+        }
       }
+    }
+
+    async function ctlc() {
+    // ctrl-C twice: interrupt any running program on robot
+       await writer.write(Int16Array.from([0x13, 0x03, 0x03]));
+    }
+
+    async function ctld(){
+    //  ctrl-D - do a soft reboot of robot controller
+        await writer.write(Int16Array.from([0x04]));
+    }
+
+    async function ctle(){
+    //  ctrl-E - puts robot controller into raw paste mode
+        await writer.write(Int16Array.from([0x13, 0x05]));
+    }
+
+    async function reboot(){  // soft reboot
+        ctlc();
+        ctld();
+      //  setTimeout(ctlc, 4000);
+    }
+
+    async function sendCode(){  // send whatever is in the input box (it's hidden)
+    //	var value = document.getElementById("input").value;
+      var value = input.value;
+      sendCommand(value);
+      console.log(value);
+  //	setTimeout(runCode, 3000);
+    }
+
+    function sendCommand(command) {   // send data passed to here
+      var ccommand = command.replace(/\n/g, "\r");               /// i added
+      writer.write(encoder.encode(ccommand + '\r\n'));
+    }
+
+    function saveCPcode() {   // executes paste code in block workspace to the controller and saves it to a file
+      ctlc(); // interrupt any running code
+      pastecode();
+      var command = "with open('code.py','w') as f: f.write(code)"
+      var ccommand = command.replace(/\n/g, "\r");               /// i added
+      writer.write(encoder.encode(ccommand + '\r\n'));
+
+      setTimeout(ctld, 1000); // soft reboot - send it twice
+      setTimeout(ctld, 250);
+    }
+
+
+    function pastecode() {    // paste code in the code workspace
+      var code = '\r' + "code=r'''" + Blockly.Python.workspaceToCode(Code.workspace) + "'''";
+      var ccommand = code.replace(/\n/g, "\r");               /// i added
+
+      console.log(ccommand);
+      writer.write(encoder.encode(ccommand + '\r\n'));
+  //    writer.write(encoder.encode(ccommand));
+  //    setTimeout(readLoop(), 1000);
+
+    }
+
+    async function raw() {    // envokes raw REPL mode
+        // send ctl-A
+         await writer.write(Int16Array.from([0x01]));
+        }
+
+    async function exitraw() {  // exits raw REPL mode
+        // send ctl-B
+       await writer.write(Int16Array.from([0x02]));
+        }
+
+
+connect.addEventListener('click', async () => {
+      port = await navigator.serial.requestPort();
+      await port.open({
+        baudRate: 115200,
+        dateBits: 8,
+        stopBits: 1
+      });
+
+      writer = port.writable.getWriter();
+      reader = port.readable.getReader();
+
+      readLoop();
+    //  connect.disabled = true;
+      disconnect.disabled = false;
+      input.disabled = false;
+    });
+
+    disconnect.addEventListener('click', async () => {
+      await writer.close();
+      await reader.cancel();
+      await port.close();
+      disconnect.disabled = true;
+      connect.disabled = false;
+      input.disabled = true;
+    });
+
+    input.addEventListener('keyup', (e) => {  //lisens for return key in command input box
+        if (e.keyCode === 13) {
+          e.preventDefault();
+          var code = input.value;
+          sendCommand(code);
+          input.value = '';
+          return false;
+        }
+        return true;
+      });
+
 </script>
 
 <div id="layer1">
@@ -948,6 +872,7 @@ function dragElement(elmnt) {
   }
 }
 </script>
+
 
 </body>
 

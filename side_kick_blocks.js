@@ -157,7 +157,18 @@ Blockly.Blocks['event_wait_for_start'] = {
         .appendField("Program Start");
     this.setNextStatement(true, null);
     this.setColour("#eea011");
- this.setTooltip("Wait here until robot's start button is pressed.");
+ this.setTooltip("Begin LUMA Blockly Program");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['event_end_program'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Program End");
+    this.setPreviousStatement(true, null);
+    this.setColour("#eea011");
+ this.setTooltip("End Blocly Program and Reset LUMA");
  this.setHelpUrl("");
   }
 };

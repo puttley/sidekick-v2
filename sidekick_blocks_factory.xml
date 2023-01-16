@@ -1663,4 +1663,38 @@
         <field name="HUE">230</field>
       </block>
     </value>
+  </block><block type="factory_base" id="|cw7^;pv35nCFE!pF6oP" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="TOP"></mutation>
+    <field name="NAME">event_end_program</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">TOP</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="9146cBOLAUHmm~~L`Ekc">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="z1HNt%tA?/*,}+P#Cfv*">
+            <field name="TEXT">Program End</field>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="jh|hT9vJeaNUvK+D1s[F" deletable="false" movable="false">
+        <field name="TEXT">End program and reset LUMA</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="HM-%hEcJ!-%C3)-M`=dR" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="8K?lHf(6a0GZHLE.IN-Q"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="4(k5~tf=Rh7=1p|xT+nu">
+        <mutation colour="#5b67a5"></mutation>
+        <field name="HUE">230</field>
+      </block>
+    </value>
   </block></xml>

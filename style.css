@@ -125,7 +125,7 @@ button.notext {
   color: #fff;
   font-weight: normal;
   font-size: 16px;
-  padding: 5px 15px;
+  padding: 5px 10px;
 }
 #trashButton{
   margin: 3px 3px 3px 3px;
@@ -133,7 +133,7 @@ button.notext {
   color: #fff;
   font-weight: normal;
   font-size: 16px;
-  padding: 5px 15px;
+  padding: 5px 10px;
 }
 #saveCode{
   margin: 3px 3px 3px 3px;
@@ -141,7 +141,7 @@ button.notext {
   color: #fff;
   font-weight: normal;
   font-size: 16px;
-  padding: 5px 15px;
+  padding: 5px 10px;
   display: none;
 }
 #openContent{
@@ -150,7 +150,7 @@ button.notext {
   color: #fff;
   font-weight: normal;
   font-size: 16px;
-  padding: 5px 15px;
+  padding: 5px 10px;
 }
 #loadBlocks{
   margin: 3px 3px 3px 3px;
@@ -158,7 +158,7 @@ button.notext {
   color: #fff;
   font-weight: normal;
   font-size: 16px;
-  padding: 5px 15px;
+  padding: 5px 10px;
 }
 #openBlocks{
   margin: 3px 3px 3px 3px;
@@ -166,23 +166,27 @@ button.notext {
   color: #fff;
   font-weight: normal;
   font-size: 16px;
-  padding: 5px 15px;
+  padding: 5px 10px;
 }
-#connect{
+ #SerialSpeed{
+   display: none;
+ }
+
+#SerialConnectButton{
   margin: 3px 3px 3px 3px;
   background-color: #263238;
   color: #fff;
   font-weight: normal;
   font-size: 16px;
-  padding: 5px 15px;
+  padding: 5px 10px;
 }
-#disconnect{
+#SerialDisconnectButton{
   margin: 3px 3px 3px 3px;
   background-color: #263238;
   color: #fff;
   font-weight: normal;
   font-size: 16px;
-  padding: 5px 15px;
+  padding: 5px 10px;
 }
 #reboot{
   margin: 3px 3px 3px 3px;
@@ -190,7 +194,15 @@ button.notext {
   color: #fff;
   font-weight: normal;
   font-size: 16px;
-  padding: 5px 15px;
+  padding: 5px 10px;
+}
+#uploadCP{
+  margin: 3px 3px 3px 3px;
+  background-color: #263238;
+  color: #fff;
+  font-weight: normal;
+  font-size: 16px;
+  padding: 5px 10px;
 }
 #saveCP{
   margin: 3px 3px 3px 3px;
@@ -198,42 +210,79 @@ button.notext {
   color: #fff;
   font-weight: normal;
   font-size: 16px;
-  padding: 5px 15px;
-}
-#sendcode{
-  margin: 3px 3px 3px 3px;
-  background-color: #263238;
-  color: #fff;
-  font-weight: normal;
-  font-size: 16px;
-  padding: 5px 15px;
+  padding: 5px 10px;
   display: none;
 }
-#ctlc{
+#pasteCP{
   margin: 3px 3px 3px 3px;
   background-color: #263238;
   color: #fff;
   font-weight: normal;
   font-size: 16px;
-  padding: 5px 15px;
+  padding: 5px 10px;
   display: none;
 }
-#ctld{
+#controls_flow_statements{
   margin: 3px 3px 3px 3px;
   background-color: #263238;
   color: #fff;
   font-weight: normal;
   font-size: 16px;
-  padding: 5px 15px;
+  padding: 5px 10px;
   display: none;
 }
-#ctle{
+#interrupt{
   margin: 3px 3px 3px 3px;
   background-color: #263238;
   color: #fff;
   font-weight: normal;
   font-size: 16px;
-  padding: 5px 15px;
+  padding: 5px 10px;
+  display: none;
+}
+#CTLA{
+  margin: 3px 3px 3px 3px;
+  background-color: #263238;
+  color: #fff;
+  font-weight: normal;
+  font-size: 16px;
+  padding: 5px 10px;
+  display: none;
+}
+#CTLB{
+  margin: 3px 3px 3px 3px;
+  background-color: #263238;
+  color: #fff;
+  font-weight: normal;
+  font-size: 16px;
+  padding: 5px 10px;
+  display: none;
+}
+#CTLC{
+  margin: 3px 3px 3px 3px;
+  background-color: #263238;
+  color: #fff;
+  font-weight: normal;
+  font-size: 16px;
+  padding: 5px 10px;
+  display: none;
+}
+#CTLD{
+  margin: 3px 3px 3px 3px;
+  background-color: #263238;
+  color: #fff;
+  font-weight: normal;
+  font-size: 16px;
+  padding: 5px 10px;
+  display: none;
+}
+#CTLE{
+  margin: 3px 3px 3px 3px;
+  background-color: #263238;
+  color: #fff;
+  font-weight: normal;
+  font-size: 16px;
+  padding: 5px 10px;
   display: none;
 }
 
@@ -431,28 +480,8 @@ button {
 #player{
   width:90%;
   height:90%;
-
 }
 
-#output {
-        font-family: 'Roboto Mono', monospace;
-        width: 100%;
-        height: 70vh;
-        border: 0.5px solid;
-        border-bottom: 0px;
-        display: block;
-        background-color: black;
-        color: lightgreen;
-        overflow: auto;
-        display: none;
-      }
-
-      #input {
-        font-family: 'Roboto Mono', monospace;
-        width: 100%;
-        border: 0.5px solid;
-        border-top: 0px;
-        background-color: black;
-        color: lightgreen;
-        display: none;
-      }
+#term {
+  display: none;
+}
