@@ -90,7 +90,7 @@ Company: PITSCO Education LLC
             <td class="tabmin">&nbsp;</td>
             <td id="tab_code" class="taboff">
               <select id="code_menu"></select>
-            </td-->
+            </td>
             <td class="tabmax"></td>
               <!--button id="trashButton" class="notext" title="...">
                 <img src='../../media/1x1.gif' class="trash icon21">
@@ -694,7 +694,7 @@ Company: PITSCO Education LLC
 <button id="pasteCP" type="button" onclick=pastecode()>paste code</button>
 <button id="saveCP" type="button" onclick=saveCPcode()>save code</button>
 <button id="uploadCP" type="button" onclick=uploadCPcode()>Upload Code</button>
-<button id="SerialConnectButton" type="button" disabled>Connect LUMA</button>
+<button id="SerialConnectButton" type="button">Connect LUMA</button>
 <button id="reboot" type="button" onclick=rebootCP()>Reset LUMA</button>
 
 <div id="term"></div>
@@ -811,6 +811,7 @@ function calculate_size(win) {
  * https://github.com/svendahlstrand/web-serial-api/
  * https://dev.to/unjavascripter/the-amazing-powers-of-the-web-web-serial-api-3ilc
  * https://developer.chrome.com/en/articles/serial/
+ * https://developer.mozilla.org/en-US/docs/Web/API/SerialPort
  */
 
 const connectButton = document.getElementById ('SerialConnectButton');
@@ -821,14 +822,15 @@ const filters = [
   { usbVendorId: 0x239A, usbProductId: 0x80F4 } // LUMA Robot Controller ID's
 ];
 
+
 if ('serial' in navigator) {
   console.log("The Web Serial API is supported");
   connectButton.addEventListener('click', function () {
     if (port) {
-      term.write('\x1b[31mDisconnected from Serial Port\x1b[m\r\n');
-      console.log("Disconnected from Serial Port");
-      port.close();
-      port = undefined;
+      term.write('\x1b[31mDisconnected, or already connected to Serial Port\x1b[m\r\n');
+      console.log("Disconnected, or already connected to Serial Port");
+    //  port.close();
+    //  port = undefined;
     //  connectButton.innerText = 'Connect';
       document.getElementById('SerialSpeed').disabled = false;
     }
@@ -863,21 +865,32 @@ async function serialWrite(data) {
 
 async function getReader() {
   port = await navigator.serial.requestPort({ filters });
-	var e = document.getElementById("SerialSpeed");
+
+  port.addEventListener('disconnect', (event) => {
+    // notify that the port (specificaly LUMA) has become unavailable
+    console.log("Device is Disconnected");
+    document.getElementById('SerialConnectButton').innerText = "Connect LUMA";
+    port.close();
+    port = undefined;
+  });
+
+  var e = document.getElementById("SerialSpeed");
 	var strSpd = e.options[e.selectedIndex].value;
 	//var speed = parseInt(strSpd);
   var speed = 115200;   // set baud to 115200 as the default
   rebootCP();
 	await port.open({ baudRate: [speed] });
+  console.log("Device is most definitely connected");
+  document.getElementById('SerialConnectButton').innerText = "Connected";
   rebootCP();
 	document.getElementById('SerialSpeed').disabled = true;
 
     //    connectButton.innerText = 'Disconnect';
         term.write('\x1b[31mConnected using Web Serial API !\x1b[m\r\n');
         console.log("Connected to Serial Port");
-          const appendStream = new WritableStream({
-          write(chunk) {
-	    term.write(chunk);
+        const appendStream = new WritableStream({
+        write(chunk) {
+	      term.write(chunk);
           }
         });
 

@@ -34,7 +34,6 @@ Blockly.Python['move_speed'] = function(block) {
   return code;
 };
 
-
 Blockly.Python['move_spin'] = function(block) {
   var dropdown_direction = block.getFieldValue('direction');
   var value_degrees = Blockly.Python.valueToCode(block, 'degrees', Blockly.Python.ORDER_ATOMIC);
