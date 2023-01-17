@@ -2,11 +2,15 @@
 Blockly.Python['move_distance'] = function(block) {
   var dropdown_direction = block.getFieldValue('direction');
   var value_distance = Blockly.Python.valueToCode(block, 'distance', Blockly.Python.ORDER_ATOMIC);
-  // TODO: Assemble Python into code variable.
-
-    value_distance = value_distance.replace(/\(|\)/g, '');    // strips parenthesis out of negative string
-    value_distance = parseInt(value_distance);                // integers only
-    value_distance = Math.abs(value_distance);
+  value_distance = value_distance.replace(/\(|\)/g, '');    // strips parenthesis out of negative string
+    if(!isNaN(value_distance)){
+      //  console.log('It is a number');
+        value_distance = parseInt(value_distance);               // integers only
+        value_distance = Math.abs(value_distance);               // ABS value
+      }
+      else {
+      //  console.log('It is not a number');
+      }
   var code = 'LUMA.move_distance(' + '"'+ dropdown_direction + '"' + ',' + value_distance + ')\n';
   return code;
 };
@@ -26,10 +30,15 @@ Blockly.Python['move_stop'] = function(block) {
 
 Blockly.Python['move_speed'] = function(block) {
   var value_speed = Blockly.Python.valueToCode(block, 'speed', Blockly.Python.ORDER_ATOMIC);
-  // TODO: Assemble Python into code variable.
   value_speed = value_speed.replace(/\(|\)/g, '');    // strips parenthesis out of negative string
-  value_speed = parseInt(value_speed);                // integers only
-  value_speed = Math.abs(value_speed);
+  if(!isNaN(value_speed)){
+    //  console.log('It is a number');
+      value_speed = parseInt(value_speed);               // integers only
+      value_speed = Math.abs(value_speed);               // ABS value
+    }
+    else {
+    //  console.log('It is not a number');
+    }
   var code = 'LUMA.set_move_speed(' + value_speed + ')\n';
   return code;
 };
@@ -37,10 +46,15 @@ Blockly.Python['move_speed'] = function(block) {
 Blockly.Python['move_spin'] = function(block) {
   var dropdown_direction = block.getFieldValue('direction');
   var value_degrees = Blockly.Python.valueToCode(block, 'degrees', Blockly.Python.ORDER_ATOMIC);
-  // TODO: Assemble Python into code variable.
   value_degrees = value_degrees.replace(/\(|\)/g, '');    // strips parenthesis out of negative string
-  value_degrees = parseInt(value_degrees);
-  value_degrees = Math.abs(value_degrees);               // integers only
+  if(!isNaN(value_degrees)){
+    //  console.log('It is a number');
+      value_degrees = parseInt(value_degrees);             // integers only
+      value_degrees = Math.abs(value_degrees);             // ABS value
+    }
+    else {
+    //  console.log('It is not a number');
+    }
   var code = 'LUMA.move_spin(' + '"' + dropdown_direction + '"' + ',' + value_degrees +')\n';
   return code;
 };
@@ -49,10 +63,15 @@ Blockly.Python['move_spin'] = function(block) {
 Blockly.Python['move_pivot'] = function(block) {
   var dropdown_direction = block.getFieldValue('direction');
   var value_degrees = Blockly.Python.valueToCode(block, 'degrees', Blockly.Python.ORDER_ATOMIC);
-  // TODO: Assemble Python into code variable.
   value_degrees = value_degrees.replace(/\(|\)/g, '');    // strips parenthesis out of negative string
-  value_degrees = parseInt(value_degrees);
-  value_degrees = Math.abs(value_degrees);             // integers only
+  if(!isNaN(value_degrees)){
+    //  console.log('It is a number');
+      value_degrees = parseInt(value_degrees);             // integers only
+      value_degrees = Math.abs(value_degrees);             // ABS value
+    }
+    else {
+    //  console.log('It is not a number');
+    }
   var code = 'LUMA.move_pivot(' + '"' + dropdown_direction + '"' + ',' + value_degrees +')\n';
   return code;
 };
@@ -62,13 +81,25 @@ Blockly.Python['move_steering'] = function(block) {
   var dropdown_direction = block.getFieldValue('direction');
   var value_left_speed = Blockly.Python.valueToCode(block, 'left speed', Blockly.Python.ORDER_ATOMIC);
   var value_right_speed = Blockly.Python.valueToCode(block, 'right speed', Blockly.Python.ORDER_ATOMIC);
-  // TODO: Assemble Python into code variable.
+
   value_left_speed = value_left_speed.replace(/\(|\)/g, '');      // strips parenthesis out of negative string
   value_right_speed = value_right_speed.replace(/\(|\)/g, '');    // strips parenthesis out of negative string
-  value_left_speed = parseInt(value_left_speed);
-  value_right_speed = parseInt(value_right_speed);
-  value_left_speed = Math.abs(value_left_speed);
-  value_right_speed = Math.abs(value_right_speed);               // integers only
+  if(!isNaN(value_left_speed)){
+    //  console.log('It is a number');
+      value_left_speed = parseInt(value_left_speed);             // integers only
+      value_left_speed = Math.abs(value_left_speed);             // ABS value
+    }
+    else {
+    //  console.log('It is not a number');
+    }
+  if(!isNaN(value_right_speed)){
+    //  console.log('It is a number');
+      value_right_speed = parseInt(value_right_speed);         // integers only
+      value_right_speed = Math.abs(value_right_speed);         // ABS value
+    }
+    else {
+    //  console.log('It is not a number');
+    }
   var code = 'LUMA.move_steering(' + '"' + dropdown_direction + '"' + ',' + value_left_speed + ',' + value_right_speed + ')\n';
   return code;
 };
@@ -78,15 +109,26 @@ Blockly.Python['move_servo'] = function(block) {
   var dropdown_motor = block.getFieldValue('motor');
   var value_position = Blockly.Python.valueToCode(block, 'position', Blockly.Python.ORDER_ATOMIC);
   var value_speed = Blockly.Python.valueToCode(block, 'speed', Blockly.Python.ORDER_ATOMIC);
-  // TODO: Assemble Python into code variable.
+
   value_position = value_position.replace(/\(|\)/g, '');    // strips parenthesis out of negative string
-  value_position = parseInt(value_position);
-  value_position = Math.abs(value_position);
+  if(!isNaN(value_position)){
+    //  console.log('It is a number');
+      value_position = parseInt(value_position);         // integers only
+      value_position = Math.abs(value_position);         // ABS value
+    }
+    else {
+    //  console.log('It is not a number');
+    }
 
   value_speed = value_speed.replace(/\(|\)/g, '');    // strips parenthesis out of negative string
-  value_speed = parseInt(value_speed);
-  value_speed = Math.abs(value_speed);
-
+  if(!isNaN(value_speed)){
+    //  console.log('It is a number');
+      value_speed = parseInt(value_speed);         // integers only
+      value_speed = Math.abs(value_speed);         // ABS value
+    }
+    else {
+    //  console.log('It is not a number');
+    }
   var code = 'LUMA.move_servo(' + '"' + dropdown_motor + '"' + ',' + value_position + ',' + value_speed + ')\n';
   return code;
 };
@@ -175,8 +217,8 @@ Blockly.Python['pixel_color'] = function(block) {
   var value_color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_ATOMIC);
   var value_brightness = Blockly.Python.valueToCode(block, 'brightness', Blockly.Python.ORDER_ATOMIC);
   value_brightness = value_brightness.replace(/\(|\)/g, '');    // strips parenthesis out of negative string
-  value_brightness = parseInt(value_brightness);
-  value_brightness = Math.abs(value_brightness);
+//  value_brightness = parseInt(value_brightness);
+//  value_brightness = Math.abs(value_brightness);
   var color1 = value_color;
   var re = /[0-9A-Fa-f]{6}/g;
   var inputString = color1;
