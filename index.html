@@ -872,6 +872,8 @@ async function getReader() {
     console.log("Device is Disconnected");
     document.getElementById('SerialConnectButton').innerText = "Connect LUMA";
     document.getElementById('SerialConnectButton').style.color = '#FF3393'; // magenta
+    document.getElementById('uploadCP').style.color = '#817F86'; // gray
+    document.getElementById('reboot').style.color = '#817F86';   // gray
     port.close();
     port = undefined;
   });
@@ -885,6 +887,8 @@ async function getReader() {
   console.log("Device is most definitely connected");
   document.getElementById('SerialConnectButton').innerText = "Connected";
   document.getElementById('SerialConnectButton').style.color = '#ACFF33'; // lime green
+  document.getElementById('uploadCP').style.color = '#fff'; // white
+  document.getElementById('reboot').style.color = '#fff';   // white
   rebootCP();
 	document.getElementById('SerialSpeed').disabled = true;
 
