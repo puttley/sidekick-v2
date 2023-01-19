@@ -179,7 +179,7 @@ Company: PITSCO Education LLC
       <block type="event_gray_button"></block>
     </category>
 
-    <category name="Servos" colour= "#db2457">
+    <!--category name="Servos" colour= "#db2457">
       <block type="move_servo">
         <value name="position">
           <shadow type="math_number">
@@ -192,7 +192,7 @@ Company: PITSCO Education LLC
           </shadow>
         </value>
       </block>
-    </category>
+    </category-->
 
     <category name="Pixels" colour= "#741e1c">
       <block type="pixel_color">
@@ -814,6 +814,7 @@ function calculate_size(win) {
  * https://developer.mozilla.org/en-US/docs/Web/API/SerialPort
  */
 
+
 const connectButton = document.getElementById ('SerialConnectButton');
 let port;
 
@@ -832,6 +833,7 @@ if ('serial' in navigator) {
     //  port = undefined;
     //  connectButton.innerText = 'Connect';
       document.getElementById('SerialSpeed').disabled = false;
+
     }
     else {
     //  connectButton.innerText = 'Disconnect';
@@ -869,6 +871,7 @@ async function getReader() {
     // notify that the port (specificaly LUMA) has become unavailable
     console.log("Device is Disconnected");
     document.getElementById('SerialConnectButton').innerText = "Connect LUMA";
+    document.getElementById('SerialConnectButton').style.color = '#FF3393'; // magenta
     port.close();
     port = undefined;
   });
@@ -879,8 +882,14 @@ async function getReader() {
   var speed = 115200;   // set baud to 115200 as the default
   rebootCP();
 	await port.open({ baudRate: [speed] });
+
+  port.addEventListener('input', (event) => {
+    console.log("input");
+  });
+
   console.log("Device is most definitely connected");
   document.getElementById('SerialConnectButton').innerText = "Connected";
+  document.getElementById('SerialConnectButton').style.color = '#ACFF33'; // lime green
   rebootCP();
 	document.getElementById('SerialSpeed').disabled = true;
 

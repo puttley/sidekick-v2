@@ -1530,11 +1530,13 @@ Terminal.prototype.scrollDisp = function(disp) {
 };
 
 Terminal.prototype.write = function(data) {
+
   var l = data.length
     , i = 0
     , j
     , cs
     , ch;
+
 
   this.refreshStart = this.y;
   this.refreshEnd = this.y;
