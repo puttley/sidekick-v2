@@ -708,24 +708,30 @@ function enterMicroPythonPasteMode() {
 
 function uploadCPcode(){
   var checkcode = Blockly.Python.workspaceToCode(Code.workspace);
-
-  if (checkcode) {
-    serialWrite('\r\x03\x03'); // ctl c >> interrupt any code that is running
-    serialWrite('\r\x03\x03'); // ctl c >> interrupt any code that is running
-    serialWrite('\x05');       // ctl e >> enter raw paste mode
-    // get code from workspace and send it over serial stream
-    var code = "code=r'''" + 'import LUMA as LUMA' + '\n' + Blockly.Python.workspaceToCode(Code.workspace) + 'while True:' + '\n' + '\t' + 'pass' + "'''";
-    console.log(code); // print the code to the console
-    var ccommand = code.replace(/\n/g, "\r");               /// i added
-    serialWrite(ccommand);
-    serialWrite('\x04');   // soft rebbot
-    var command = "with open('code.py','w') as f: f.write(code)"
-    var ccommand = command.replace(/\n/g, "\r");               /// i added
-    serialWrite(ccommand);    // send save code to filesystem
-    serialWrite('\r');        // two returns
-    serialWrite('\r');
-    serialWrite('\x04');      // soft reboot
- }
+  if (port){
+      if (checkcode) {
+        window.alert("Press OK to upload code to LUMA. LUMA will blink twice and BEEP when code upload is complete. IMPORTANT: Do not unplug the USB cable or switch off power to LUMA until code upload has finished.")
+        serialWrite('\r\x03\x03'); // ctl c >> interrupt any code that is running
+        serialWrite('\r\x03\x03'); // ctl c >> interrupt any code that is running
+        serialWrite('\x05');       // ctl e >> enter raw paste mode
+        // get code from workspace and send it over serial stream
+        var code = "code=r'''" + 'import LUMA as LUMA' + '\n' + Blockly.Python.workspaceToCode(Code.workspace) + 'while True:' + '\n' + '\t' + 'pass' + "'''";
+        console.log(code); // print the code to the console
+        var ccommand = code.replace(/\n/g, "\r");               /// i added
+        serialWrite(ccommand);
+        serialWrite('\x04');   // soft rebbot
+        var command = "with open('code.py','w') as f: f.write(code)"
+        var ccommand = command.replace(/\n/g, "\r");               /// i added
+        serialWrite(ccommand);    // send save code to filesystem
+        serialWrite('\r');        // two returns
+        serialWrite('\r');
+        serialWrite('\x04');      // soft reboot
+      }else{
+        window.alert("No code in the workspace to upload.");
+      }
+   }else{
+     window.alert("LUMA Robot is not connected.");
+   }
 }
 
 function rebootCP(){
