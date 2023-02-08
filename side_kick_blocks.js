@@ -411,7 +411,7 @@ Blockly.Blocks['sound_effect'] = {
   }
 };
 
-Blockly.Blocks['loop_forever'] = {
+Blockly.Blocks['controls_loop_forever'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("forever");

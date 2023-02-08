@@ -1699,7 +1699,7 @@
     </value>
   </block><block type="factory_base" id="96oBa6,IhjXrc|#P~SPW" deletable="false" movable="false" x="10" y="10">
     <mutation connections="BOTH"></mutation>
-    <field name="NAME">loop_forever</field>
+    <field name="NAME">controls_loop_forever</field>
     <field name="INLINE">AUTO</field>
     <field name="CONNECTIONS">BOTH</field>
     <statement name="INPUTS">

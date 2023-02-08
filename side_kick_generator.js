@@ -291,12 +291,10 @@ Blockly.Python['sound_effect'] = function(block) {
   return code;
 };
 
-Blockly.Python['loop_forever'] = function(block) {
+Blockly.Python['controls_loop_forever'] = function(block) {
   var statements_do = Blockly.Python.statementToCode(block, 'do');
-  if(statements_do == ""){
-    var code = 'while True:\n' + '  pass' + '\n';
-  } else {
-    var code = 'while True:\n' + statements_do + '\n';
-  }
+  let branch = Blockly.Python.statementToCode(block, 'do');
+  branch = Blockly.Python.addLoopTrap(branch, block) || Blockly.Python.PASS;
+  var code = 'while True:\n' + branch;
   return code;
 };
