@@ -290,3 +290,13 @@ Blockly.Python['sound_effect'] = function(block) {
   var code = 'LUMA.play_sound_effect(' + "'" + dropdown_effect + "'" + ')\n';
   return code;
 };
+
+Blockly.Python['loop_forever'] = function(block) {
+  var statements_do = Blockly.Python.statementToCode(block, 'do');
+  if(statements_do == ""){
+    var code = 'while True:\n' + '  pass' + '\n';
+  } else {
+    var code = 'while True:\n' + statements_do + '\n';
+  }
+  return code;
+};

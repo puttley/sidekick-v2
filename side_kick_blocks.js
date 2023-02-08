@@ -410,3 +410,19 @@ Blockly.Blocks['sound_effect'] = {
  this.setHelpUrl("");
   }
 };
+
+Blockly.Blocks['loop_forever'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("forever");
+    this.appendDummyInput()
+        .appendField("do");
+    this.appendStatementInput("do")
+        .setCheck(null);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(120);
+ this.setTooltip("repeat statements in do loop forever");
+ this.setHelpUrl("");
+  }
+};

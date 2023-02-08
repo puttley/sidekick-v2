@@ -1697,4 +1697,60 @@
         <field name="HUE">230</field>
       </block>
     </value>
+  </block><block type="factory_base" id="96oBa6,IhjXrc|#P~SPW" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">loop_forever</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="T{l,R~_Si}PMiIa;W7-^">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="8#g9gA`]jVnk7mfAd{3V">
+            <field name="TEXT">forever</field>
+          </block>
+        </statement>
+        <next>
+          <block type="input_dummy" id="ACem~fS:8ITyE-UT-P@;">
+            <field name="ALIGN">LEFT</field>
+            <statement name="FIELDS">
+              <block type="field_static" id="o|=+$5+QKI^HP7(=2#5H">
+                <field name="TEXT">do</field>
+              </block>
+            </statement>
+            <next>
+              <block type="input_statement" id="{XZHKh{~RhgE}7q6latj">
+                <field name="INPUTNAME">do</field>
+                <field name="ALIGN">LEFT</field>
+                <value name="TYPE">
+                  <shadow type="type_null" id="Wn9WL7NBplLFKduY0:7L"></shadow>
+                </value>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="%xM/5Y;uh-c}2sz(Flri" deletable="false" movable="false">
+        <field name="TEXT">repeat statements in do loop forever</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="1{(pW34vYYOjJ_%79eIJ" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="@gZ#A$m2~YKWElKDWpJ:"></shadow>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="w6cyY-GOes?U3.07MP0z"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="AA[h|=B@v-R4`k3M|r|C">
+        <mutation colour="#5ba55b"></mutation>
+        <field name="HUE">120</field>
+      </block>
+    </value>
   </block></xml>
