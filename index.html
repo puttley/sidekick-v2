@@ -827,10 +827,13 @@ let port;
 
 // Filter on devices with specific Vendor/Product IDs.
 const filters = [
-  { usbVendorId: 0x21FA, usbProductId: 0x8132 } // LUMA Robot Controller ID's
+  { usbVendorId: 0x21FA, usbProductId: 0x8132 }, // LUMA Robot Controller ID's
+  { usbVendorId: 0x239A, usbProductId: 0x80F4 }
 ];                                              // 21FA is Pitsco's USB-IF issued vendor ID
+                                                // lUMA uses 0x21FA and 0x8132
                                                 // BETA units used 239A and 0x80F4
-if ('serial' in navigator) {                    
+                                                // ESP32-S3 uses 239A and 0x8114
+if ('serial' in navigator) {
   console.log("The Web Serial API is supported");
   connectButton.addEventListener('click', function () {
     if (port) {
